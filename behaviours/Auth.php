@@ -77,10 +77,7 @@ class Auth {
         $server= InputData::getServer();
         if (isset($cookie['access_token']) && isset($cookie['refresh_token'])) {
             $result = self::rewriteToken($cookie['access_token'], $cookie['refresh_token']);
-            echo '<br><br><br><br><br><br>';
-            var_dump($result);
             if ($result['success'] == 1) {
-              
                 if (isset($result['refresh_token'])) { 
                     InputData::setCookie('refresh_token', '', -1, '/', $server['HTTP_HOST'], COOKIE_SECURE, COOKIE_ONLYHTTP, 'Lax');
                     InputData::setCookie('refresh_token', $result['refresh_token'], time() + (3600 * 24 * 7), '/', $server['HTTP_HOST'], COOKIE_SECURE, COOKIE_ONLYHTTP, 'Lax');

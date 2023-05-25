@@ -44,6 +44,19 @@ function register(){
 			resultMessage.classList.add('result-error')
 		resultMessage.classList.remove('d-none')
 		resultMessage.textContent = result.data.message
+		let panel = document.getElementById('reg-panel')
+		let inputs = panel.getElementsByTagName('input')
+		for(let input of inputs){
+			if(input.type!='checkbox'&&input.type!='radio')
+				input.value=''
+			else
+				input.checked=false
+		}
+		for(let key of arrChecks.keys()){
+			arrChecks.set(key,false)
+		}
+		let regButton = document.getElementById('reg-button')
+		regButton.disabled=true
 		setTimeout(()=>resultMessage.classList.add('d-none'),5000)
     }).catch(err=>{
 		load.classList.add('d-none')

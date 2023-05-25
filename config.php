@@ -1,7 +1,7 @@
 <?php
 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+ini_set('display_errors', 0);
+error_reporting(0);
 date_default_timezone_set("Asia/Almaty");
 
 define('SITE_NAME',"PHP-TEST");
