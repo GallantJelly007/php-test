@@ -13,7 +13,7 @@
 	<title>Тестовое задание</title>
 </head>
 <body class="d-flex fd-col">
-	<div class="popup-back p-10">
+	<div class="popup-back p-10 maxh-100">
 		<div id="auth" class="popup-message maxh-100 ov w-30 w-m-100 ov-m-scroll-y mh-m-10 d-none">
 			<?php echo $authPanel?>
 		</div>
