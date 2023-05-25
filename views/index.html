@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/faststyle.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+	<link rel="icon" href="images/favicon.ico">
+	<script src="js/script.js"></script>
+	<title>Тестовое задание</title>
+</head>
+<body class="d-flex fd-col">
+	<div class="popup-back p-10">
+		<div id="auth" class="popup-message maxh-100 ov w-30 w-m-100 ov-m-scroll-y mh-m-10 d-none">
+			<div class="load-cont load-back d-flex ajc-center d-none">
+				<div class="load">
+					<div class="load-center"></div>
+				</div>
+			</div>
+			<ul class="switch-menu d-flex w-100 bb-1 pos-rel" data-menu-area="menu-container">
+				<li class="switch-menu-item ph-20 pv-10 w-50 flex-1 active-switch-menu-item t-center" data-panel="auth-panel">Вход</li>
+				<li class="switch-menu-item ph-20 pv-10 w-50 flex-1 t-center" data-panel="reg-panel">Регистрация</li>
+				<div class="switch-h-hr"></div>
+			</ul>
+			<div id="menu-container" class="ph-20 pv-10 w-100 pos-rel">
+				<button class="popup-button close-button" data-target="auth">&#10006;</button>
+				<div id="auth-panel" class="menu-block d-flex fd-col ai-center">
+					<h3 class="fw-bold t-center mt-10 mb-20">Авторизация</h3>
+					<input class="text-input mb-10 w-100" type="text" name="login" placeholder="E-mail">
+					<input class="text-input mb-10 w-100" type="password" name="pass" placeholder="Пароль">
+					<a href="#">Забыли пароль?</a>
+					<button class="fill-button mt-20">Войти</button>
+				</div>
+				<div id="reg-panel" class="menu-block d-flex fd-col ai-center d-none">
+					<h3 class="fw-bold t-center mt-10 mb-20">Регистрация</h3>
+					<input class="text-input w-100" type="text" name="name" placeholder="Имя">
+					<p class="warning mb-05 as-start" data-target="name"></p>
+					<input class="text-input w-100" type="text" name="surname" placeholder="Фамилия">
+					<p class="warning mb-05 as-start" data-target="surname"></p>
+					<input class="text-input w-100" type="text" name="email" placeholder="E-mail">
+					<p class="warning mb-05 as-start" data-target="email"></p>
+					<input id="new-pass" class="text-input w-100" type="new-password" name="password" placeholder="Пароль" data-relative="repeat-pass">
+					<p class="warning mb-05 as-start" data-target="password"></p>
+					<input id="repeat-pass" class="text-input w-100" type="new-password" name="repeat-pass" placeholder="Повторите пароль" data-relative="new-pass">
+					<p class="warning mb-05 as-start" data-target="repeat-pass"></p>
+					<div class="d-flex ai-center mt-10 as-start">
+						<input type="checkbox" name="policy" data-required>
+						<p class="fsz-06 ml-05">Я согласен с <a href="#">политикой конфиденциальности</a> и <a href="#">правилами использования</a> сайта</p>
+					</div>
+					<button id="reg-button" class="fill-button popup-button mt-20" data-target="auth" disabled>Зарегистрироваться</button>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<header class="d-flex ai-center jc-bspace pv-10 pos-fix w-100 z-20">
+		<nav class="container fd-row jc-bspace main-padding w-100">
+			<div class="fsz-20 fw-bold c-main d-flex ajc-center">LOGO</div>
+			<div id="nav-admin-btns" class="admin-btns d-flex ai-center">
+				<button id="create-root" class="create-root admin-button"></button>
+				<button class="create admin-button" disabled></button>
+				<button class="edit admin-button" disabled></button>
+				<button class="delete admin-button" disabled></button>
+			</div>
+			<div class="user-info d-flex ai-center d-none">
+				<div class="d-flex ai-center">
+					<p class="fw-bold c-dark mr-05 fsz-09">Username</p>
+					<div class="avatar d-flex ajc-center brad-circle ov-hidden">
+						<img src="images/avatar.jpg" class="w-100" alt="avatar">
+					</div>
+				</div>
+				
+				<button class="exit admin-button ml-10"></button>
+			</div>
+			<button class="button popup-button" data-target="auth">Вход/Регистрация</button>
+		</nav>
+	</header>
+
+	<main class="container pv-20 pt-m-10 pb-m-50 main-padding flex-1 w-100 mt-50">
+		<article class="w-100 d-flex fd-col">
+			<ul id="root-container" class="obj-container pos-rel">
+				<li class="obj-item pos-rel">
+					<div class="obj-content p-10 maxw-70 maxw-m-100 d-flex fd-col">
+						<div class="d-flex jc-bspace ai-center mb-05 fd-m-col-rs">
+							<div class="d-flex w-100">
+								<input type="checkbox" class="select-obj mr-05">
+								<p class="fw-bold obj-name c-main">Наименование объекта</p>
+							</div>
+
+							<div class="d-flex ml-10 manage-panel w-m-100 jc-m-bspace ml-m-0 mb-10">
+								<ul class="admin-btns d-flex ai-center">
+									<li class="create admin-button"></li>
+									<li class="edit admin-button"></li>
+									<li class="delete admin-button"></li>
+								</ul>
+							</div>
+						</div>
+						<p class="bt-1 pt-05 fsz-07 obj-desc c-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, neque voluptas laborum animi, eos ratione hic obcaecati? Magni iste blanditiis aperiam quaerat, beatae quos praesentium tempore tenetur, ea, cupiditate voluptate.</p>
+						<div class="load-cont d-flex mt-05 jc-end ai-center d-none">
+							<p class="status d-flex ai-center c-main fw-bold fsz-07 mr-05">Сохранение</p>
+							<div class="load">
+								<div class="load-center"></div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li class="obj-item deploy pos-rel">
+					<div class="obj-content p-10 maxw-70 maxw-m-100">
+						<div class="d-flex jc-bspace ai-center mb-05 fd-m-col-rs">
+							<div class="d-flex w-100">
+								<input type="checkbox" class="select-obj mr-05">
+								<p class="fw-bold obj-name c-main">Наименование объекта</p>
+							</div>
+
+							<div class="d-flex ml-10 manage-panel w-m-100 jc-m-bspace ml-m-0 mb-10">
+								<ul class="admin-btns d-flex ai-center">
+									<li class="create admin-button"></li>
+									<li class="edit admin-button"></li>
+									<li class="delete admin-button"></li>
+								</ul>
+								<button class="deploy-btn ml-20"><span>&#10095;</span></button>
+							</div>
+						</div>
+						<p class="bt-1 pt-05 fsz-07 obj-desc c-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, neque voluptas laborum animi, eos ratione hic obcaecati? Magni iste blanditiis aperiam quaerat, beatae quos praesentium tempore tenetur, ea, cupiditate voluptate.</p>
+					</div>
+					<ul class="obj-container pos-rel d-none">
+						<li class="obj-item deploy pos-rel">
+							<div class="obj-content p-10 maxw-70 maxw-m-100">
+								<div class="d-flex jc-bspace ai-center mb-05 fd-m-col-rs">
+									<div class="d-flex w-100">
+										<input type="checkbox" class="select-obj mr-05">
+										<p class="fw-bold obj-name c-main">Наименование объекта</p>
+									</div>
+
+									<div class="d-flex ml-10 manage-panel w-m-100 jc-m-bspace ml-m-0 mb-10">
+										<ul class="admin-btns d-flex ai-center">
+											<li class="create admin-button"></li>
+											<li class="edit admin-button"></li>
+											<li class="delete admin-button"></li>
+										</ul>
+										
+									</div>
+								</div>
+								<p class="bt-1 pt-05 fsz-07 obj-desc c-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, neque voluptas laborum animi, eos ratione hic obcaecati? Magni iste blanditiis aperiam quaerat, beatae quos praesentium tempore tenetur, ea, cupiditate voluptate.</p>
+							</div>
+
+						</li>
+						<li class="obj-item deploy pos-rel">
+							<div class="obj-content p-10 maxw-70 maxw-m-100">
+								<div class="d-flex jc-bspace ai-center mb-05 fd-m-col-rs">
+									<div class="d-flex w-100">
+										<input type="checkbox" class="select-obj mr-05">
+										<p class="fw-bold obj-name c-main">Наименование объекта</p>
+									</div>
+
+									<div class="d-flex ml-10 manage-panel w-m-100 jc-m-bspace ml-m-0 mb-10">
+										<ul class="admin-btns d-flex ai-center">
+											<li class="create admin-button"></li>
+											<li class="edit admin-button"></li>
+											<li class="delete admin-button"></li>
+										</ul>
+										
+									</div>
+								</div>
+								<p class="bt-1 pt-05 fsz-07 obj-desc c-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, neque voluptas laborum animi, eos ratione hic obcaecati? Magni iste blanditiis aperiam quaerat, beatae quos praesentium tempore tenetur, ea, cupiditate voluptate.</p>
+							</div>
+							
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</article>
+	</main>
+	<footer class="d-flex pb-10 pr-10 jc-end w-100 pos-fix">
+		<span class="author">@Created by Alex</span>
+	</footer>
+</body>
+</html>
