@@ -338,8 +338,8 @@ textarea.obj-desc::placeholder{
 .aside-desc{
 	position:fixed;
 	border-radius:1em;
-	top:6em;
-	right:1em;
+	top:6rem;
+	right:1rem;
 	background-color: #eef;
 	box-shadow: -2px 0 4px rgba(0,0,0,0.1);
 }
@@ -379,8 +379,8 @@ textarea.obj-desc::placeholder{
 	.aside-desc{
 		border-radius:1em;
 		top:initial;
-		bottom:1em;
-		right: 1em;
+		bottom:1rem;
+		right: 1rem;
 		background-color: #eef;
 		box-shadow: -2px 0 4px rgba(0,0,0,0.1);
 	}

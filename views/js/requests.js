@@ -5,8 +5,10 @@ window.addEventListener('load',()=>{
     if(regButton) regButton.addEventListener('click',register);
 })
 
+let timeout
 
 function authorization(){
+	clearTimeout(timeout)
     let load = document.getElementById('auth-panel-load')
 	let resultMessage = document.getElementById('auth-result')
 	resultMessage.classList.add('d-none')
@@ -19,7 +21,7 @@ function authorization(){
            resultMessage.classList.add('result-error')
            resultMessage.classList.remove('d-none')
            resultMessage.textContent = result.data.message
-		   setTimeout(()=>resultMessage.classList.add('d-none'),5000)
+		   timeout = setTimeout(()=>resultMessage.classList.add('d-none'),5000)
         }else{
 			window.location.reload();
 		}
@@ -29,7 +31,9 @@ function authorization(){
     })
 }
 
+
 function register(){
+	clearTimeout(timeout)
 	let load = document.getElementById('auth-panel-load')
 	let resultMessage = document.getElementById('reg-result')
 	resultMessage.classList.add('d-none')
@@ -57,7 +61,7 @@ function register(){
 		}
 		let regButton = document.getElementById('reg-button')
 		regButton.disabled=true
-		setTimeout(()=>resultMessage.classList.add('d-none'),5000)
+		timeout = setTimeout(()=>resultMessage.classList.add('d-none'),5000)
     }).catch(err=>{
 		load.classList.add('d-none')
 		console.error(err)
