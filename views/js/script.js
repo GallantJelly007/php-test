@@ -371,7 +371,7 @@ function createEditButtons(){
 
 function editObj(event){
 	let currentObj=getSelectedObj('.edit')
-	let prevName='',prevDesc=''
+	let prevName='',prevDesc='',prevParentId = null
 	if(currentObj){
 		let objName = currentObj.querySelector('.obj-name')
 		let objDesc = currentObj.querySelector('.obj-desc')
@@ -472,6 +472,7 @@ function replaceElement(obj,name,desc,parentId){
 	}
 	let prevContainer = obj.parentElement
 	let currentParentId = prevContainer.getAttribute('data-parent-id')
+	console.log(parentId+' | '+currentParentId)
 	if(parentId!=currentParentId){
 		if(container==null||!container){
 			let parentObj = document.querySelector(`.obj-item[data-id="${parentId}"]`)
@@ -493,6 +494,7 @@ function replaceElement(obj,name,desc,parentId){
 			}
 		}
 		if(container){
+			
 			container.appendChild(obj)
 			if(!prevContainer.children.length){
 				let prevParent = prevContainer.parentElement
