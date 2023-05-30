@@ -303,17 +303,26 @@ class JaxRequest{
                         if(item instanceof Object||item instanceof Map){
                             item=item instanceof Object?Object.entries(item):item
                             for(let [el,value] of item){
-                                if(result instanceof FormData) result.append(key+`[${el}]`,value.toString())
-                                else result.push(key+'['+el+']='+encodeURIComponent(value.toString()))
+                                if(result instanceof FormData) result.append(`${key}[${el}]`,value.toString())
+                                else{
+                                    if(value==null) result.push(`${key}[${el}]=null`)
+                                    else result.push(`${key}[${el}]=${encodeURIComponent(value.toString())}`)
+                                }
                             }
                         }else if(Array.isArray(item)){
                             for(let el of item){
-                                if(result instanceof FormData) result.append(key+`[]`,el.toString())
-                                else result.push(key+'[]='+encodeURIComponent(el.toString()))
+                                if(result instanceof FormData) result.append(`${key}[]`,el.toString())
+                                else{
+                                    if(el==null) result.push(`${key}[]=null`)  
+                                    else result.push(`${key}[]=${encodeURIComponent(el.toString())}`)   
+                                }
                             }
                         }else{
                             if(result instanceof FormData) result.append(key,item.toString())
-                            else result.push(key+'='+encodeURIComponent(item.toString()))
+                            else{
+                                if(item==null) result.push(`${key}=null`)  
+                                else result.push(`${key}=${encodeURIComponent(item.toString())}`)    
+                            }
                         }
                     }
                 }
@@ -497,8 +506,6 @@ class JaxRequest{
                             throw new Error('The HTMLElement passed to the data parameter is not a form or input')
                         }
                     } 
-                }else{
-                    return false
                 }
             }
            

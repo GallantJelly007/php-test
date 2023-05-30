@@ -20,7 +20,9 @@ header{
 .c-main{
 	color:var(--main);
 }
-
+select{
+	background-color: #fff;
+}
 .main-padding{
 	padding-left:15rem;
 	padding-right:15rem;

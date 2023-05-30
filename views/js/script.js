@@ -389,18 +389,52 @@ function editObj(event){
 			descInput.placeholder = "Описание объекта"
 			prevName = objName.textContent
 			prevDesc = objDesc.textContent
+			prevParentId = currentObj.parentElement.getAttribute('data-parent-id')
 			nameInput.value = objName.textContent
 			descInput.value = objDesc.textContent
 			objName.parentElement.insertBefore(nameInput,objName)
 			objName.parentElement.removeChild(objName)
 			objDesc.parentElement.insertBefore(descInput,objDesc)
 			objDesc.parentElement.removeChild(objDesc)
+			if(currentObj.hasAttribute('data-id')){
+				let currentId = currentObj.getAttribute('data-id')
+				let cObj = listObjs.find((item)=>item.id==currentId)
+				if(cObj){
+					let divSelect = document.createElement('div')
+					divSelect.className='d-flex ai-center mt-10 parent-change-cont'
+					let selectParent = document.createElement('select')
+					selectParent.name="parent_id"
+					selectParent.className="flex-1 parent-change"
+					let option = document.createElement('option')
+					option.value=0
+					option.textContent = `Нет родителя`
+					option.selected=true
+					selectParent.appendChild(option)
+					let objChildIds=getChildsID(currentId,listObjs)
+					let allowedParents = listObjs.filter(el=>!objChildIds.includes(el.id)&&el.id!=currentId)
+					for(let item of allowedParents){
+						option = document.createElement('option')
+						option.value=item.id
+						option.textContent = `${item.title} - ${item.id}`
+						selectParent.appendChild(option)
+						if(item.id==cObj.parentId) {
+							option.selected=true
+						}
+					}
+					let selectLabel = document.createElement('p')
+					selectLabel.className='mr-05'
+					selectLabel.textContent = 'Смена родителя: '
+					divSelect.appendChild(selectLabel)
+					divSelect.appendChild(selectParent)
+					descInput.parentElement.appendChild(divSelect)
+				}
+			}
 			let objCont = currentObj.querySelector('.obj-content')
 			if(objCont!=null){
 				let buttons = createEditButtons()
 				objCont.appendChild(buttons.container)
 				buttons.cancel.addEventListener('click',()=>{
-					replaceElement(currentObj,prevName,prevDesc)
+					replaceElement(currentObj,prevName,prevDesc,prevParentId)
 				})
 				buttons.save.addEventListener('click',(ev)=>saveObj(ev,currentObj))
 			}
@@ -408,11 +442,13 @@ function editObj(event){
 	}
 }
 
-function replaceElement(obj,name,desc){
+function replaceElement(obj,name,desc,parentId){
 	let inputName = obj.querySelector('.obj-name')
 	let inputDesc = obj.querySelector('.obj-desc')
 	let managePanel = obj.querySelector('.manage-panel')
 	let selectObj = obj.querySelector('.select-obj')
+	let parentChange = obj.querySelector('.parent-change-cont')
+
 	let buttons = obj.querySelector('.edit-buttons')
 	objName=document.createElement('p')
 	objDesc = document.createElement('p')
@@ -428,6 +464,47 @@ function replaceElement(obj,name,desc){
 		inputDesc.parentElement.insertBefore(objDesc, inputDesc)
 		inputDesc.parentElement.removeChild(inputDesc)
 	}
+	let container=undefined
+	if(parentId==0||parentId==null){
+		container = document.getElementById('root-container');
+	}else{
+		container = document.querySelector(`.obj-container[data-parent-id="${parentId}"]`);
+	}
+	let prevContainer = obj.parentElement
+	let currentParentId = prevContainer.getAttribute('data-parent-id')
+	if(parentId!=currentParentId){
+		if(container==null||!container){
+			let parentObj = document.querySelector(`.obj-item[data-id="${parentId}"]`)
+			if(parentObj!=null){
+				container = document.createElement('ul')
+				container.className='obj-container pos-rel d-none'
+				container.setAttribute('data-parent-id',parentId)
+				parentObj.classList.add('deploy')
+				let managePanel = parentObj.querySelector('.manage-panel')
+				let deployBtn = document.createElement('button')
+				let deploySpan = document.createElement('span')
+				deploySpan.innerHTML='&#10095;'
+				deployBtn.appendChild(deploySpan)
+				deployBtn.className='deploy-btn ml-20'
+				managePanel.appendChild(deployBtn)
+				parentObj.appendChild(container)
+				deployBtn.addEventListener('click',(ev)=>deployment(ev,parentObj))
+				deployBtn.dispatchEvent(new Event('click'))
+			}
+		}
+		if(container){
+			container.appendChild(obj)
+			if(!prevContainer.children.length){
+				let prevParent = prevContainer.parentElement
+				prevParent.classList.remove('deploy')
+				let deployBtn = prevParent.querySelector('.deploy-btn')
+				if(deployBtn!=null) deployBtn.parentElement.removeChild(deployBtn)
+				prevParent.removeChild(prevContainer)
+			}
+		}
+	}
+
+	if(parentChange!=null) parentChange.parentElement.removeChild(parentChange)
 	if(selectObj!=null) selectObj.classList.remove('d-none')
 	if(managePanel!=null) managePanel.classList.remove('d-none')
 	if(buttons!=null) buttons.parentElement.removeChild(buttons)
@@ -472,7 +549,6 @@ function saveObj(event,obj,isNew=false){
 		topName.appendChild(checkboxObj)
 		topName.appendChild(objName)
 		topBlock.appendChild(topName)
-
 		let objDesc = document.createElement('p')
 		objDesc.className = 'bt-1 pt-05 fsz-07 obj-desc c-dark'
 		objDesc.textContent = inputDesc.value
@@ -507,7 +583,9 @@ function saveObj(event,obj,isNew=false){
 			}
 		})
 	}else{
-		replaceElement(obj,inputName.value,inputDesc.value)
+		let selectParent = obj.querySelector('.parent-change')
+		let parentId = selectParent.options[selectParent.options.selectedIndex].value
+		replaceElement(obj,inputName.value,inputDesc.value,parentId)
 		saveRequest(obj)
 	}
 }
@@ -566,5 +644,16 @@ function selectObjUser(event){
 	aside.appendChild(desc)
 }
 
-
+function getChildsID(parentId,objs){
+	let arr=[]
+	let childs = objs.filter(el=>el.parentId==parentId)
+	let childIDs = childs.map(el=>el.id)
+	if(childs.length){
+		arr = arr.concat(childIDs)
+		for(let id of childIDs){
+			arr = arr.concat(getChildsID(id,objs))
+		}
+	}
+	return arr
+}
 

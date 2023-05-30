@@ -1,8 +1,10 @@
+let listObjs;
 window.addEventListener('load',()=>{
     let authButton = document.getElementById('auth-button');
     if(authButton) authButton.addEventListener('click',authorization);
     let regButton = document.getElementById('reg-button');
     if(regButton) regButton.addEventListener('click',register);
+	getAllObjs()
 })
 
 let timeout
@@ -80,6 +82,8 @@ function saveRequest(obj,successCallback,errorCallback){
 	}
 	if(obj.parentElement.hasAttribute('data-parent-id')){
 		params.parentId = obj.parentElement.getAttribute('data-parent-id')
+	}else{
+		params.parentId = null
 	}
 	let load = obj.querySelector('.load-cont')
 	if(load!=null) load.classList.remove('d-none')
@@ -93,6 +97,7 @@ function saveRequest(obj,successCallback,errorCallback){
 			if(result.data.success==1){
 				status.classList.add('success')
 				status.textContent = "Успешно"
+				getAllObjs()
 				if(successCallback)
 					successCallback(result.data)
 			}else{
@@ -136,4 +141,12 @@ function deleteRequest(obj,successCallback,errorCallback){
 			console.error(err)
 		})
 	}
+}
+
+function getAllObjs(){
+	jax.post(window.location+'get-all-objects').then(result=>{
+		if(result.data!=null && result.data.success==1){
+			listObjs=result.data.objects
+		}
+	})
 }

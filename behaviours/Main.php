@@ -48,6 +48,23 @@ class Main{
         }
     }
 
+    static function getAllObjects(){
+        $message = 'Ошибка сервера';
+        try{
+            $objs = Obj::select()->send();
+            if($objs===false){
+                throw new Exception();
+            }
+            if(is_null($objs)){
+                return ['success'=>1,'objects'=>null];
+            }
+            $objs = Obj::asArray($objs);
+            return ['success'=>1,'objects'=>$objs];
+        }catch(Exception $ex){
+            return ['success'=>0,'message'=>$message];
+        }
+    }
+
     static function save(){
         $post = InputData::getPost();
         $message = 'Ошибка сервера';
@@ -62,7 +79,14 @@ class Main{
                 }
                 $obj->title = $post['title'];
                 $obj->description = $post['description'];
-                $result = $obj->update();
+                if(isset($post['parentId'])){
+                    if($post['parentId']==''||$post['parentId']=='null'){
+                        $obj->parentId = null;
+                    }else{
+                        $obj->parentId = $post['parentId'];
+                    }
+                }
+                $result = $obj->update(true);
                 if(!$result){
                     throw new Exception();
                 }

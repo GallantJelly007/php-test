@@ -9,7 +9,7 @@
     <div class="switch-h-hr"></div>
 </ul>
 <div id="menu-container" class="ph-20 pv-10 w-100 pos-rel">
-    <button class="popup-button close-button" data-target="auth">&#10006;</button>
+    <button class="popup-button close-button p-0" data-target="auth">&#10006;</button>
     <form id="auth-panel" class="menu-block d-flex fd-col ai-center">
         <h3 class="fw-bold t-center mt-10 mb-05">Авторизация</h3>
         <div id="auth-result" class="result p-10 w-100 fsz-08 d-none"></div>

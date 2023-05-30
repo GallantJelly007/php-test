@@ -45,6 +45,14 @@ class MainController extends Controller{
         return true;
     }
 
+    public function getAllObjects(){
+        if(isset($_SESSION['auth_user'])&&$_SESSION['auth_user']['role']=='admin'){
+            echo json_encode(Main::getAllObjects(),JSON_UNESCAPED_UNICODE);
+            return true;
+        }
+        return false;
+    }
+
     public function saveObject(){
         if(isset($_SESSION['auth_user'])&&$_SESSION['auth_user']['role']=='admin'){
             echo json_encode(Main::save(),JSON_UNESCAPED_UNICODE);
