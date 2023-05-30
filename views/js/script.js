@@ -472,7 +472,6 @@ function replaceElement(obj,name,desc,parentId){
 	}
 	let prevContainer = obj.parentElement
 	let currentParentId = prevContainer.getAttribute('data-parent-id')
-	console.log(parentId+' | '+currentParentId)
 	if(parentId!=currentParentId){
 		if(container==null||!container){
 			let parentObj = document.querySelector(`.obj-item[data-id="${parentId}"]`)

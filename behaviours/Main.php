@@ -97,7 +97,11 @@ class Main{
                 $obj->description = $post['description'];
                 $obj->userId = $_SESSION['auth_user']['id'];
                 if(isset($post['parentId'])){
-                    $obj->parentId = $post['parentId'];
+                    if($post['parentId']==''||$post['parentId']=='null'){
+                        $obj->parentId = null;
+                    }else{
+                        $obj->parentId = $post['parentId'];
+                    }
                 }
                 $result = $obj->save();
                 if(!$result['success']){
